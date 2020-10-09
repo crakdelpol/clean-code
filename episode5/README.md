@@ -1,8 +1,9 @@
-#COMMENTS
+
+# COMMENTS
 
 Everytime you write a comment you fail!
 
-##Good comments
+## Good comments
 
 - Legal Comments
 ```
@@ -69,7 +70,7 @@ new ListItemWidget(this, listItemContent, this.level + 1); return buildList(text
 There is nothing quite so helpful and satisfying as a well-described public API. The java- docs for the standard Java library are a case in point. It would be difficult, at best, to write Java programs without them.
 If you are writing a public API, then you should certainly write good javadocs for it. But keep in mind the rest of the advice in this chapter. Javadocs can be just as misleading, nonlocal, and dishonest as any other kind of comment.
 
-##Bad comments
+## Bad comments
 
 - Mumbling
 ```
@@ -274,7 +275,7 @@ Short functions don’t need much description. A well-chosen name for a small fu
 As useful as javadocs are for public APIs, they are anathema to code that is not intended for public consumption. Generating javadoc pages for the classes and functions inside a system is not generally useful, and the extra formality of the javadoc comments amounts to little more than cruft and distraction.
 ```
 
-#OBJECT AND DATA STRUCTURE
+# OBJECT AND DATA STRUCTURE
 
 difference from Objects and Data Structure
 Objects hide their data behind abstractions and expose functions that operate on that data. Data struc-ture expose their data and have no meaningful functions.
