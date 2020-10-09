@@ -361,7 +361,7 @@ More precisely, the Law of Demeter says that a method f of a class C should only
 
 The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers.
 
-The following code3 appears to violate the Law of Demeter (among other things) because it calls the getScratchDir() function on the return value of getOptions() and then calls getAbsolutePath() on the return value of getScratchDir().
+The following code appears to violate the Law of Demeter (among other things) because it calls the getScratchDir() function on the return value of getOptions() and then calls getAbsolutePath() on the return value of getScratchDir().
 
 ```final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();```
 

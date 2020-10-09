@@ -21,9 +21,6 @@ the problem: what one thing mean?
 ### One level of Abstraction per function
 In order to make sure our functions are doing "one thing", we need to make sure that the statements within our function are all at the same level of abstraction.
 
-### Command query separation
-Functions should either do something or answer something, but not both. Doing both often leads to confusion.
-
 ### prefer exceptions to returning error codes
 Returning error codes from command functions is a violation of command query separation.
 When you return an error code, you create the problem that the caller must deal with the error immediately.
