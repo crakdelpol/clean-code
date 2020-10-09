@@ -10,4 +10,4 @@ Summaries of clean code course by uncle Bob
 
 [Episode 4: "Functions Structure"](/episode4.md)
 
-[Episode 5: "Form"](/episode5.md)
+[Episode 5: "Form"](episode5.md)
