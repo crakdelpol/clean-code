@@ -122,28 +122,16 @@ public void addCD(String title, String author,
 ```
 * Changes (from 11-Oct-2001)
 * --------------------------
-* 11-Oct-2001 : *
-* 05-Nov-2001 : *
-* 12-Nov-2001 : *
-*
-*
-* 05-Dec-2001 :
-* 29-May-2002 : *
-* 27-Aug-2002 :
-* 03-Oct-2002 :
-* 13-Mar-2003 :
-* 29-May-2003 :
-* 04-Sep-2003 :
-* 05-Jan-2005 :
-Re-organised the class and moved it to new package com.jrefinery.date (DG);
-Added a getDescription() method, and eliminated NotableDate class (DG);
-IBD requires setDescription() method, now that NotableDate class is gone (DG); Changed getPreviousDayOfWeek(), getFollowingDayOfWeek() and getNearestDayOfWeek() to correct bugs (DG);
-Fixed bug in SpreadsheetDate class (DG);
-Moved the month constants into a separate interface (MonthConstants) (DG);
-Fixed bug in addMonths() method, thanks to N???levka Petr (DG); Fixed errors reported by Checkstyle (DG);
-Implemented Serializable (DG);
-Fixed bug in addMonths method (DG);
-Implemented Comparable. Updated the isInRange javadocs (DG); Fixed bug in addYears() method (1096282) (DG);
+* 11-Oct-2001 : * Re-organised the class and moved it to new package com.jrefinery.date (DG);
+* 05-Nov-2001 : * Added a getDescription() method, and eliminated NotableDate class (DG);
+* 12-Nov-2001 : * IBD requires setDescription() method, now that NotableDate class is gone (DG); Changed getPreviousDayOfWeek(), getFollowingDayOfWeek() and getNearestDayOfWeek() to correct bugs (DG);
+* 05-Dec-2001 : Fixed bug in SpreadsheetDate class (DG);
+* 29-May-2002 : Moved the month constants into a separate interface (MonthConstants) (DG);
+* 27-Aug-2002 : Fixed bug in addMonths() method, thanks to N???levka Petr (DG); Fixed errors reported by Checkstyle (DG);
+* 03-Oct-2002 : Implemented Serializable (DG);
+* 13-Mar-2003 : Fixed bug in addMonths method (DG);
+* 29-May-2003 : Implemented Comparable. Updated the isInRange javadocs (DG); Fixed bug in addYears() method (1096282) (DG);
+
 ```
 - Noise Comments
 ```
