@@ -2,7 +2,8 @@
 
 Every time you give a name your intent is explain what is it.
 
-```int d; // elapsed time in days
+```
+int d; // elapsed time in days
 
 int elapsedTimeInDays;
 ```
