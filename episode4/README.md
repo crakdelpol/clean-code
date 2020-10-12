@@ -1,6 +1,6 @@
-#Functions structure.
+# Functions structure.
 
-##Arguments
+## Arguments
 
 what is the correct number of arguments?
 Zero is the best,
@@ -56,7 +56,7 @@ Following these rules means that there should only be one return statement in a 
 So if you keep your functions small, then the occasional multiple return, break, or continue statement does no harm and can sometimes even be more expressive than the single-entry, single-exit rule. 
 On the other hand, goto only makes sense in large functions, so it should be avoided.
 
-#Error handling 
+# Error handling 
 
 ## Error first
 
