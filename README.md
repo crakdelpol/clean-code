@@ -19,3 +19,5 @@ Summaries of clean code course by uncle Bob
 [Chapter 10: "Classes"](/book/chapter10/Classes.md)
 
 [Chapter 12: "Emergence"](/book/chapter12/Emergence.md)
+
+[Chapter 17: "Smells"](/book/chapter17/Smells.md)
