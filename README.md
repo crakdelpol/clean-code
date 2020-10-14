@@ -17,3 +17,5 @@ Summaries of clean code course by uncle Bob
 [Chapter 9: "Unit Tests"](/book/chapter9/UnitTests.md)
 
 [Chapter 10: "Classes"](/book/chapter10/Classes.md)
+
+[Chapter 12: "Emergence"](/book/chapter12/Emergence.md)
