@@ -49,7 +49,7 @@ Methods that are never called should be discarded.
 The ideal id for a source file to contain one, and only one, language. Realistically, we will probably have to use more than one. But we should take pains to minimize both the number and extent of extra languages in our source files.
 
 #### Obvious behavior is unimplemented
-Any function or class should implement the behaviors that another programmer could reasonably expect("The principle of Least Surprise").
+Any function or class should implement the behaviors that another programmer could reasonably expect("The principle of The Least Surprise").
 
 #### Incorrect behavior at the boundaries
 
@@ -62,7 +62,7 @@ Turning off certain compiler warning may help you get build to succeed, but at t
 #### Duplication
 Every time you see duplication in the code, it represents a missed opportunity for abstraction.
 The most obvious form of duplication is when you have clumps of identical code. These should be replaced with simple method.
-A more form is the swith/case or if/else chain that appears again and again. These should be replaced with polymorphism.
+A more form is the switch/case or if/else chain that appears again and again. These should be replaced with polymorphism.
 Most design patterns are simply well-know ways to eliminate duplication.
 
 #### Code at wrong level of abstraction
@@ -76,7 +76,7 @@ Base classes should know nothing about their derivatives.
 
 #### Too much information
 Well-defined modules have very small interfaces that allow you to do a lot with a little.
-A well-defined interface does not offer very many func- tions to depend upon, so coupling is low.
+A well-defined interface does not offer very many functions to depend upon, so coupling is low.
 
 Hide your data. Hide your utility functions. Hide your constants and your temporaries. Don’t create classes with lots of methods or lots of instance variables.
 
@@ -92,5 +92,86 @@ Private functions should be defined just below their first usage.
 If you do something a certain way, do all similar things in the same way
 
 #### Clutter
-Variables that aren’t used, functions that are never called, comments that add no information, and so forth. All these things are clutter and should be removed.
+Variables that are not used, functions that are never called, comments that add no information, and so forth. All these things are clutter and should be removed.
 
+#### Artificial coupling 
+artificial coupling is a coupling between two modules that serves no direct purpose. It is a result of putting a variable, constant, or function in a temporarily convenient, though inappropriate, location.
+
+#### Feature envy
+The methods of a class should be interested in the variables and functions of the class they belong to, and not the variables and functions of other classes.
+
+#### Selector arguments
+Selector arguments are just a lazy way to avoid splitting a large function into several smaller functions. 
+
+#### Obscured intent
+We want code to be as expressive as possible. Run-on expressions, Hungarian notation, and magic numbers all obscure the author’s intent.
+
+#### Misplaced Responsibility
+One of the most important decisions a software developer can make is where to put code.
+Code should be placed where a reader would naturally expect it to be.
+
+#### Inappropriate static
+In general, you should prefer nonstatic methods to static methods. When in doubt, make the function nonstatic. If you really want a function to be static, make sure that there is no chance that you’ll want it to behave polymorphically.
+
+#### Use explanatory variables
+One of the more powerful ways to make a program readable is to break the calculations up into intermediate val- ues that are held in variables with meaningful names.
+
+#### Function names should say what they do
+If you have to look at the implementation (or documentation) of the function to know what it does, then you should work to find a better name or rearrange the functionality so that it can be placed in functions with better names.
+
+#### Understand the algorithm
+You think you know the right algorithm for something, but then you wind up fiddling with it, prodding and poking at it, until you get it to “work.” How do you know it “works”? Because it passes the test cases you can think of.
+Before you consider yourself to be done with a function, make sure you understand how it works. It is not good enough that it passes all the tests. You must know that the solution is correct.
+Often the best way to gain this knowledge and understanding is to refactor the function into something that is so clean and expressive that it is obvious how it works.
+
+#### Make logical dependencies physical
+If one module depends upon another, that dependency should be physical, not just logical.
+Rather, it should explicitly ask that module for all the information it depends upon.
+
+Example:
+```
+public class HourlyReporter {
+    private HourlyReportFormatter formatter;
+    private List<LineItem> page;
+    private final int PAGE_SIZE = 55;
+
+    public HourlyReporter(HourlyReportFormatter formatter) { 
+        this.formatter = formatter;
+        page = new ArrayList<LineItem>();
+    }
+
+    public void generateReport(List<HourlyEmployee> employees) {
+        for (HourlyEmployee e : employees) {
+            addLineItemToPage(e);
+            if (page.size() == PAGE_SIZE)
+                printAndClearItemList(); 
+        }
+        if (page.size() > 0)
+            printAndClearItemList();
+    }
+
+    private void printAndClearItemList() {
+        formatter.format(page); page.clear();
+    }
+
+    private void addLineItemToPage(HourlyEmployee e) {
+        LineItem item = new LineItem();
+        item.name = e.getName();
+        item.hours = e.getTenthsWorked() / 10;
+        item.tenths = e.getTenthsWorked() % 10;
+        page.add(item); 
+    }
+
+    public class LineItem {
+        public String name;
+        public int hours;
+        public int tenths;
+    }
+}
+``` 
+The fact that PAGE_SIZE is declared in HourlyReporter represents a misplaced responsibility that causes HourlyReporter to assume that it knows what the page size ought to be. Such an assumption is a logical dependency. HourlyReporter depends on the fact that HourlyReportFormatter can deal with page sizes of 55. If some implementation of HourlyReportFormatter could not deal with such sizes, then there would be an error.
+
+
+#### Prefer polymorphism to if/else or switch/case
+
+There may be no more than one switch statement for a given type of selection. The cases in that switch statement must create polymorphic objects that take the place of other such switch statements in the rest of the system.
