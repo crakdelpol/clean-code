@@ -175,3 +175,186 @@ The fact that PAGE_SIZE is declared in HourlyReporter represents a misplaced res
 #### Prefer polymorphism to if/else or switch/case
 
 There may be no more than one switch statement for a given type of selection. The cases in that switch statement must create polymorphic objects that take the place of other such switch statements in the rest of the system.
+
+#### Follow standard conventions
+Every team should follow a coding standard based on common industry norms.
+
+#### Replace magic numbers with named constants
+In general, it is a bad idea to have raw numbers in your code. You should hide them behind well-named constants.
+
+#### Be precise
+When you make a decision in your code, make sure you make it precisely. Know why you have made it and how you will deal with any exceptions.
+Ambiguities and imprecision in code are either a result of disagreements or laziness. In either case they should be eliminated.
+
+#### Structure over convention
+Enforce design decisions with structure over convention.
+For example, switch/cases with nicely named enumerations are inferior to base classes with abstract methods.
+
+#### Encapsulate conditionals
+Boolean logic is hard enough to understand without having to see it in the context of an if or while statement.
+
+For example:
+``` if (shouldBeDeleted(timer))``` 
+is preferable to:
+``` if (timer.hasExpired() && !timer.isRecurrent())``` 
+
+
+#### Avoid negative conditionals
+Negatives are just a bit harder to understand than positives. So, when possible, conditionals should be expressed as positives.
+
+#### Functions should do one thing
+Functions of this kind do more than one thing, and should be converted into many smaller functions, each of which does one thing.
+
+#### Hidden temporal couplings
+Temporal couplings are often necessary, but you should not hide the coupling.
+
+Example: 
+
+```
+public class MoogDiver { 
+    Gradient gradient; 
+    List<Spline> splines;
+    public void dive(String reason) { 
+        saturateGradient(); 
+        reticulateSplines(); 
+        diveForMoog(reason);
+    }
+}
+```
+The order of the three functions is important. You must saturate the gradient before you can reticulate the splines, and only then can you dive for the moog. Unfortunately, the code does not enforce this temporal coupling. Another programmer could call reticulate- Splines before saturateGradient was called, leading to an UnsaturatedGradientException. A better solution is:
+```
+public class MoogDiver { 
+    Gradient gradient; 
+    List<Spline> splines;
+
+    public void dive(String reason) {
+        Gradient gradient = saturateGradient(); 
+        List<Spline> splines = reticulateSplines(gradient); 
+        diveForMoog(splines, reason);
+    }
+}
+```
+Note that I left the instance variables in place. I presume that they are needed by pri- vate methods in the class. Even so, I want the arguments in place to make the temporal coupling explicit.
+
+#### Don't be arbitrary
+Have a reason for the way you structure your code, and make sure that reason is communicated by the structure of the code. If a structure appears arbitrary, others will feel empowered to change it. 
+Public classes that are not utilities of some other class should not be scoped inside another class. The convention is to make them public at the top level of their package.
+
+#### Encapsulate boundary conditions
+
+Boundary conditions are hard to keep track of. Put the processing for them in one place.
+
+```
+if(level + 1 < tags.length) {
+    parts = new Parse(body, tags, level + 1, offset + endTag);
+    body = null;
+}
+```
+Becomes
+```
+int nextLevel = level + 1; 
+if(nextLevel < tags.length) {
+    parts = new Parse(body, tags, nextLevel, offset + endTag);
+    body = null; 
+}
+```
+
+#### Functions should descend only ine level of abstraction
+The statements within a function should all be written at the same level of abstraction.
+
+example
+```
+public String render() throws Exception {
+    StringBuffer html = new StringBuffer("<hr"); if(size > 0)
+    html.append(" size=\"").append(size + 1).append("\""); html.append(">");
+    return html.toString(); 
+}
+```
+
+This method is mixing at least two levels of abstraction. The first is the notion that a horizontal rule has a size. The second is the syntax of the HR tag itself. This code comes from the HruleWidget module in FitNesse. This module detects a row of four or more dashes and converts it into the appropriate HR tag. The more dashes, the larger the size.
+
+```
+public String render() throws Exception {
+    HtmlTag hr = new HtmlTag("hr"); if (extraDashes > 0)
+    hr.addAttribute("size", hrSize(extraDashes)); return hr.html();
+}
+private String hrSize(int height) {
+    int hrSize = height + 1;
+    return String.format("%d", hrSize); 
+}
+```
+
+This change separates the two levels of abstraction nicely. 
+The render function simply con- structs an HR tag, without having to know anything about the HTML syntax of that tag. 
+The HtmlTag module takes care of all the nasty syntax issues.
+
+#### Keep configurable data at high levels
+
+The configuration constants reside at a very high level and are easy to change.
+They get passed down to the rest of the application. 
+
+#### Avoid transitive navigation
+
+Rather, we want our immediate collaborators to offer all the services we need. We should not have to roam through the object graph of the system, hunting for the method we want to call. Rather, we should simply be able to say:
+```myCollaborator.doSomething().```
+
+### Chose descriptive names
+Make sure the name is descriptive.
+Names in software are 90 percent of what make software readable. You need to take the time to choose them wisely and keep them relevant. Names are too important to treat carelessly.
+
+#### Choose names at the appropriate level of abstraction
+Don’t pick names that communicate implementation;
+```
+public interface Modem {
+    boolean dial(String phoneNumber); 
+    boolean disconnect();
+    boolean send(char c);
+    char recv();
+    String getConnectedPhoneNumber();
+}
+```
+```
+public interface Modem {
+    boolean connect(String connectionLocator); 
+    boolean disconnect();
+    boolean send(char c);
+    char recv();
+    String getConnectedLocator();
+}
+```
+
+Now the names don’t make any commitments about phone numbers. They can still be used for a phone numbers, or they could be used for any other kind of connection strategy.
+
+#### Use standard nomenclature where possible
+Names are easier to understand if they are based on existing convention or usage.
+The more you can use names that are overloaded with special meanings that are relevant to your project, the easier it will be for readers to know what your code is talking about.
+
+#### Unambiguous names
+Choose names that make the workings of a function or variable unambiguous
+
+#### Use long names for long scopes
+The length of a name should be related to the length of the scope. You can use very short variable names for tiny scopes, but for big scopes you should use longer names.
+
+#### Avoid encodings
+Names should not be encoded with type or scope information.
+
+#### Names should describe side-effects
+
+Names should describe everything that a function, variable, or class is or does. Don’t hide side effects with a name.
+
+#### Insufficient tests
+
+#### Use a coverage tool!
+
+#### An ignored test is a question about an ambiguity
+
+#### Test boundary conditions
+
+#### Exhaustively test near bugs
+
+#### Patterns of failure are revealing
+Sometimes you can diagnose a problem by finding patterns in the way the test cases fail. This is another argument for making the test cases as complete as possible. Complete test cases, ordered in a reasonable way, expose patterns.
+
+#### Test coverage patterns can be revealing
+
+#### Test should be fast
